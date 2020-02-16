@@ -80,6 +80,18 @@ class AppointmentController {
         .json({ error: 'Appointment date is not available at this time' });
     }
 
+    const sameUserAndProviderId = await Appointment.findOne({
+      where: {
+        provider_id,
+      },
+    });
+
+    if (sameUserAndProviderId.provider_id === req.userId) {
+      return res
+        .status(400)
+        .json({ error: 'You cannot be your own customer.' });
+    }
+
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
