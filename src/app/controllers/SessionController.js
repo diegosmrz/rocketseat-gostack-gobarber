@@ -14,7 +14,7 @@ class SessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fail ' });
+      return res.status(400).json({ error: 'Validation fail for session' });
     }
 
     const { email, password } = req.body;
